@@ -6,6 +6,7 @@ public class Game implements Runnable {
     private GamePanel gamePanel;//Panel donde se pinta la imagen
     private Thread gameThread;//Hilo de ejecución para el juego
     private final int FPS_SET = 120;
+    private final int UPS_SET = 200;
     private final double NANOSECOND = 1000000000.0;
 
     //Constructor
@@ -23,30 +24,50 @@ public class Game implements Runnable {
         gameThread.start();//Inicia el hilo
     }
 
+    public void update(){
+        gamePanel.updateGame();
+    }
 
     @Override //Método que viene al implementar la interfaz Runnable, para los Threads
     public void run() {
-
         double timePerFrame = NANOSECOND / FPS_SET;//Obtiene el tiempo en Nanosegundos para 120 FPS
-        long lastFrame = System.nanoTime();//El último tiempo registrado al iniciar
-        long now = System.nanoTime(); //el tiempo actual
+        double timePerUpdate = NANOSECOND / UPS_SET;//Obtiene el tiempo en Nanosegundos para 200 UPS
+
+        long previousTime = System.nanoTime();
+
         int frames = 0;
+        int updates = 0;
         long lastCheck = System.currentTimeMillis();
+
+        double deltaU = 0;
+        double deltaF = 0;
+
         while (true) {
-            now = System.nanoTime();//el tiempo actual
-            //Si la diferencia del tiempo actual con el último registro es mayor igual al tiempo de los 120 FPS
-            if (now - lastFrame >= timePerFrame) {
+            long currentTime = System.nanoTime();
+
+            deltaU += (currentTime - previousTime) / timePerUpdate;
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
+
+            if (deltaU >= 1) {
+                update();
+                updates++;
+                deltaU--;
+            }
+            if (deltaF >= 1) {
                 gamePanel.repaint(); //Limpia el panel
-                lastFrame = now;//Y el último registro pasa a ser el tiempo actual
                 frames++;
+                deltaF--;
             }
 
             //FPS CHECKER
             //Si el tiempo transcurrido menos la última verificación del mismo es mayor o igual a 1000, 1S --> 1000MS
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();//Obtiene la última instancia después de entrar al IF
-                System.out.println("FPS: " + frames);
+                System.out.println("FPS: " + frames + "| UPS: " + updates);
                 frames = 0;//Reinicia el conteo de FPS
+                updates = 0;//Reinicia el conteo de FPS
+
             }
 
 

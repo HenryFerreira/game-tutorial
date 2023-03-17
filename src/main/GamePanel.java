@@ -20,7 +20,7 @@ public class GamePanel extends JPanel {
     private float yDelta = 100;
     private BufferedImage img;
     private BufferedImage[][] animations;
-    private int animationTick, animationIndex, animationSpeed = 15;//cuanto más bajo sea el animationSpeed más rápido se mueve la animación
+    private int animationTick, animationIndex, animationSpeed = 30;//cuanto más bajo sea el animationSpeed más rápido se mueve la animación
     private int playerAction = IDLE;
     private int playerDirection = -1;
     private boolean moving = false;
@@ -121,20 +121,19 @@ public class GamePanel extends JPanel {
         }
     }
 
+    public void updateGame(){
+        updateAnimationTick();
+        setAnimation();
+        updatePositions();
+    }
+
     //Método para dibujar un componente
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);//Implementar el método del JPanel
 
-        updateAnimationTick();
-
-        setAnimation();
-
-        updatePositions();
-
         //El observer es un objeto que controla el cambio de estado de una imagen, y no se va a utilizar en este tutorial
-        /*
-         * drawImage(imagen, posición_x, posición_y, observable) Solo la imagen, con tamaño original
+        /* drawImage(imagen, posición_x, posición_y, observable) Solo la imagen, con tamaño original
          * drawImage(imagen, posición_x, posición_y, ancho, alto, observable)Imagen con otro tamaño
          * drawImage(imagen.getSubImage(posición_x, posición_y, ancho, alto), posición_x, posición_y, ancho, alto, observable) Sección de la imagen con otro tamaño
          * */

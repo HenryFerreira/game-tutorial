@@ -1,0 +1,16 @@
+
+l	java:S116"RRename this field "FPS_SET" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ýâüÚøÿÿÿÿ
+l	java:S116	"RRename this field "UPS_SET" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘¥ûøûÿÿÿÿ
+o	java:S116
+"URename this field "NANOSECOND" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ÚµÜøÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(ýâüÚøÿÿÿÿ
+<
+java:S1170	"!Make this final field static too.(‘¥ûøûÿÿÿÿ
+<
+java:S1170
+"!Make this final field static too.(…ÚµÜøÿÿÿÿ
+o
+java:S1450"YRemove the "gameThread" field and declare it as a local variable in the relevant methods.(´ÜÀõ
+I
+java:S1068".Remove this unused "gameWindow" private field.(˜·ƒ¾þÿÿÿÿ
